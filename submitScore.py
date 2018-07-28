@@ -3,7 +3,7 @@
 import sqlite3
 import cgi, cgitb
 import json
-
+import datetime
 form = cgi.FieldStorage()
 
 if form.getvalue('serialno'):
@@ -13,8 +13,8 @@ if form.getvalue('serialno'):
 
     conn = sqlite3.connect('userData.db', isolation_level=None) #commits query immediately
     cur = conn.cursor()
-    stri = "INSERT INTO SCORES VALUES(?,?,?)"
-    cur.execute(stri, (serial, gname, score))
+    stri = "INSERT INTO SCORES VALUES(?,?,?,?)"
+    cur.execute(stri, (serial, gname, score, datetime.datetime.now()))
     print("Content-type: text/plain\r\n\r\n")
     print 200
     conn.close()
